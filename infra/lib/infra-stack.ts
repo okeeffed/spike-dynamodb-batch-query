@@ -6,7 +6,7 @@ export class MyDynamoDBStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const table = new dynamodb.Table(this, "ActivitiesAndUsers", {
+    const table = new dynamodb.Table(this, "SpikeBatchGetAndQuery", {
       tableName: "SpikeBatchGetAndQuery",
       partitionKey: {
         name: "composite_id",

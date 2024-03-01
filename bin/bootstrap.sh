@@ -1,5 +1,9 @@
 #!/bin/bash
 
+AWS_ACCESS_KEY_ID='test'
+AWS_SECRET_KEY='test'
+AWS_REGION='us-east-1'
+
 # Step 1: Run docker compose up
 echo "Starting LocalStack with Docker Compose..."
 docker compose up -d
@@ -16,9 +20,9 @@ echo "LocalStack is ready."
 echo "Running AWS CDK commands in the infra directory..."
 (
 	cd infra || exit
-	pnpm cdk-local synth --all
-	pnpm cdk-local bootstrap --all
-	pnpm cdk-local deploy --all
+	pnpm cdk-local synth
+	pnpm cdk-local bootstrap --force
+	pnpm cdk-local deploy
 )
 
 # Example bash script snippet

@@ -4,21 +4,27 @@ import {
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
 import { faker } from "@faker-js/faker";
+import { writeFile } from "fs/promises";
 
 const client = new DynamoDBClient({
   endpoint: `http://localhost:4566`,
+  credentials: {
+    accessKeyId: "test",
+    secretAccessKey: "test",
+  },
+  region: "us-east-1",
 });
 const ddbDocClient = DynamoDBDocumentClient.from(client);
 
 const TABLE_NAMES = ["SpikeBatchGetAndQuery"];
 
-const NUM_ROLES = 50;
-const NUM_PARTIES = 10;
+const NUM_ROLES = 1000;
+const NUM_PARTIES = 100;
 
 /**
  * Seed users with random data.
  */
-async function seedRoles(tableName: string, parties) {
+async function seedRoles(tableName: string, parties: string[]) {
   let items = [];
 
   for (let i = 0; i < NUM_PARTIES; i++) {
@@ -69,6 +75,17 @@ async function mockParties() {
 
     parties.push(`PartyType#${partyType}#PartyId#${partyId}`);
   }
+
+  await writeFile(
+    "parties.json",
+    JSON.stringify(
+      {
+        parties,
+      },
+      null,
+      2
+    )
+  );
 
   return parties;
 }

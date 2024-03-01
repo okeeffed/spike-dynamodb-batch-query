@@ -2,7 +2,7 @@
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import { MyDynamoDBStack } from "../lib/infra-stack";
-import { DynamoESStack } from "../lib/dynamo-elasticsearch-stack";
+// import { DynamoESStack } from "../lib/dynamo-elasticsearch-stack";
 
 const app = new cdk.App();
 new MyDynamoDBStack(app, "MyDynamoDBStack", {
