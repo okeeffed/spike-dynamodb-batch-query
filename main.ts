@@ -2,8 +2,9 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import data from "./parties.json";
 
-const SEARCH_PARTIES_LIMIT = data.parties.length;
-const PAGE_SIZE = 5;
+// const SEARCH_PARTIES_LIMIT = data.parties.length;
+const SEARCH_PARTIES_LIMIT = 2;
+const PAGE_SIZE = 10;
 const PAGE_NUMBER = 1;
 
 const client = new DynamoDBClient({
@@ -56,7 +57,8 @@ async function batchProcess(
 ) {
   const batchedResults = [];
   for (let i = 0; i < partyKeys.length; i += batchSize) {
-    console.log("Running batch nunber:", i);
+    let batchNumber = i / batchSize + 1;
+    console.log("Running batch nunber:", batchNumber);
     const batch = partyKeys.slice(i, i + batchSize);
     const results = await executeBatch(batch);
     batchedResults.push(
@@ -72,6 +74,8 @@ async function batchProcess(
 
 async function main() {
   const partyKeys = data.parties.slice(0, SEARCH_PARTIES_LIMIT);
+
+  console.log("@ Party keys:", partyKeys);
   const batchedRoles = await batchProcess(partyKeys, PAGE_SIZE, 10); // Process in batches of 10
   const pageSize = PAGE_SIZE; // Default pageSize to 10 if not provided
   const pageNumber = PAGE_NUMBER; // Default pageNumber to 1 if not provided
@@ -91,7 +95,7 @@ async function main() {
   const paginatedRoles = sortedRoles.slice(startIndex, startIndex + pageSize);
 
   console.log("@ Sorted roles (last 5):", sortedRoles.slice(-5));
-  console.log("@ Paginated roles:", paginatedRoles);
+  console.log("@ Paginated roles:", paginatedRoles.slice(0, 5));
 
   console.log("@ sorted roles length", sortedRoles.length);
   console.log("@ paginated roles length", paginatedRoles.length);
