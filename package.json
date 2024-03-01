@@ -1,0 +1,33 @@
+{
+  "name": "spike-dynamodb-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsx --env-file=.env.local main.ts",
+    "dev:es": "tsx --env-file=.env.local main-elasticsearch.ts",
+    "seed": "tsx --env-file=.env.local seed.ts",
+    "bootstrap": "bin/bootstrap.sh",
+    "create-index": "tsx --env-file=.env.local create-index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.515.0",
+    "@aws-sdk/credential-provider-node": "^3.515.0",
+    "@aws-sdk/lib-dynamodb": "^3.515.0",
+    "@elastic/elasticsearch": "^7.14.0",
+    "@faker-js/faker": "^8.4.1",
+    "@opensearch-project/opensearch": "^2.5.0",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.11.19",
+    "aws": "link:@opensearch-project/opensearch/aws",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1"
+  }
+}

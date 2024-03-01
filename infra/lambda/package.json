@@ -1,0 +1,9 @@
+{
+  "name": "lambda-function",
+  "version": "1.0.0",
+  "dependencies": {
+    "@aws-sdk/credential-provider-node": "^3.515.0",
+    "@elastic/elasticsearch": "^7.14.0",
+    "@opensearch-project/opensearch": "^2.5.0"
+  }
+}
